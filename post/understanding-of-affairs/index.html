@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>事务的理解 | Gridea</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://nnocase.github.io/favicon.ico?v=1615866188628">
+<link rel="stylesheet" href="https://nnocase.github.io/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="事务(基于PostgreSQL)
+事务最重要的一点就是将多个步骤捆绑成一个单一的、要么全完成要么全不完成的操作
+例如，考虑一个保存着多个客户账户余额和支行总存款额的银行数据库。假设我们希望记录一笔从Alice的账户到Bob的账户的额度为10..." />
+    <meta name="keywords" content="数据库" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://nnocase.github.io">
+        <img src="https://nnocase.github.io/images/avatar.png?v=1615866188628" class="site-logo">
+        <h1 class="site-title">Gridea</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://nnocase.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">事务的理解</h2>
+            <div class="post-date">2018-12-12</div>
+            
+              <div class="feature-container" style="background-image: url('https://nnocase.github.io/post-images/understanding-of-affairs.jpg')">
+              </div>
+            
+            <div class="post-content" v-pre>
+              <h4 id="事务基于postgresql">事务(基于PostgreSQL)</h4>
+<p>事务最重要的一点就是<strong>将多个步骤捆绑成一个单一的、要么全完成要么全不完成</strong>的操作</p>
+<p>例如，考虑一个保存着多个客户账户余额和支行总存款额的银行数据库。假设我们希望记录一笔从Alice的账户到Bob的账户的额度为100.00美元的转账。在最大程度地简化后，涉及到的SQL命令是：</p>
+<!-- more -->
+<pre><code class="language-sql">UPDATE accounts SET balance = balance - 100.00
+    WHERE name = 'Alice';
+UPDATE branches SET balance = balance - 100.00
+    WHERE name = (SELECT branch_name FROM accounts WHERE name = 'Alice');
+UPDATE accounts SET balance = balance + 100.00
+    WHERE name = 'Bob';
+UPDATE branches SET balance = balance + 100.00
+    WHERE name = (SELECT branch_name FROM accounts WHERE name = 'Bob');
+</code></pre>
+<p>显而易见，为了完成这样一个简单的操作，数据库涉及到了多个独立的更新。但是独立的更新不能保障数据的一致性，不能发生因为系统错误导致Bob收到100美元而Alice并未被扣款的情况。这个时候就需要将这些更新组织成一个事务了，因为事务具有原子性和一致性：</p>
+<h5 id="1-原子性-atomicity">1、原子性 ——Atomicity</h5>
+<p><strong>事务里的所有操作要么一起成功，要么一起失败回滚。</strong></p>
+<h5 id="2-一致性-consistency">2、一致性 ——Consistency</h5>
+<p><strong>数据在事务执行前后，从一个一致性状态转变至另一个一致性状态。</strong></p>
+<p>同时，一个事务被数据库系统完成并认可，我们也希望永久地记录下来且即便其后发生崩溃也不会被丢失。例如，如果我们正在记录Bob的一次现金提款，我们当然不希望他刚走出银行大门，对他账户的扣款就消失。一个事务型数据库保证一个事务在被报告为完成之前它所做的所有更新都被记录在持久存储（即磁盘）。这就是事务的另一个特性——持久性</p>
+<h5 id="3-持久性-durability">3、持久性 ——Durability</h5>
+<p><strong>事务一旦提交，对数据库造成的影响是永久性的，即便数据库遭遇断网断电等故障，也不会丢失提交的更新。</strong></p>
+<p>但是，现在还有一个问题，现实中并不是只有一个Alice转账给Bob的情况，当多个事务并发生，如何保证数据的一致性？这里就要讲到事务的第四大特性——隔离性：</p>
+<h5 id="4-隔离性isolation">4、隔离性——Isolation</h5>
+<p><strong>当多个事务并发访问数据库时，各个事务之间应该是隔离的，独立的。一个事务不应该影响其他事务的效果。事务查看数据更新时，数据要么是其他事务执行前的状态，要么是其他事务执行后的状态，不能看到中间的状态。</strong></p>
+<p><strong>当多个事务并发运行时，每一个都不能看到其他事务未完成的修改。</strong></p>
+<p><strong>完全的隔离性只有事务串行执行，那样则不存在并发，效率很低，因此在开发中应结合业务需求设置事务的隔离级别，隔离级别越高，效率越低，反之，效率越高。四个隔离级别稍后介绍。</strong></p>
+<p>例如，如果一个事务正忙着总计所有支行的余额，它不会只包括Alice的支行的扣款而不包括Bob的支行的存款，或者反之。所以事务的全做或全不做并不只体现在它们对数据库的持久影响，也体现在它们发生时的可见性。一个事务所做的更新在它完成之前对于其他事务是不可见的，而之后所有的更新将同时变得可见。</p>
+<p>在PostgreSQL中，开启一个事务需要将SQL命令用BEGIN和COMMIT命令包围起来。因此我们的银行事务看起来会是这样：</p>
+<pre><code class="language-sql">BEGIN;
+UPDATE accounts SET balance = balance - 100.00
+    WHERE name = 'Alice';
+-- etc etc
+COMMIT;
+</code></pre>
+<p>如果，在事务执行中我们并不想提交（或许是我们注意到Alice的余额不足），我们可以发出ROLLBACK命令而不是COMMIT命令，这样所有目前的更新将会被取消。</p>
+<p>PostgreSQL实际上将每一个SQL语句都作为一个事务来执行。如果我们没有发出BEGIN命令，则每个独立的语句都会被加上一个隐式的BEGIN以及（如果成功）COMMIT来包围它。一组被BEGIN和COMMIT包围的语句也被称为一个事务块。</p>
+<blockquote>
+<p>注意<br>
+某些客户端库会自动发出BEGIN和COMMIT命令，因此我们可能会在不被告知的情况下得到事务块的效果。</p>
+</blockquote>
+<p>也可以利用保存点来以更细的粒度来控制一个事务中的语句。保存点允许我们有选择性地放弃事务的一部分而提交剩下的部分。在使用SAVEPOINT定义一个保存点后，我们可以在必要时利用ROLLBACK TO回滚到该保存点。该事务中位于保存点和回滚点之间的数据库修改都会被放弃，但是早于该保存点的修改则会被保存。</p>
+<p>在回滚到保存点之后，它的定义依然存在，因此我们可以多次回滚到它。反过来，如果确定不再需要回滚到特定的保存点，它可以被释放以便系统释放一些资源。记住不管是释放保存点还是回滚到保存点都会释放定义在该保存点之后的所有其他保存点。</p>
+<p>所有这些都发生在一个事务块内，因此这些对于其他数据库会话都不可见。当提交整个事务块时，被提交的动作将作为一个单元变得对其他会话可见，而被回滚的动作则永远不会变得可见。</p>
+<p>记住那个银行数据库，假设我们从Alice的账户扣款100美元，然后存款到Bob的账户，结果直到最后才发现我们应该存到Wally的账户。我们可以通过使用保存点来做这件事：</p>
+<pre><code class="language-sql">BEGIN;
+UPDATE accounts SET balance = balance - 100.00
+    WHERE name = 'Alice';
+SAVEPOINT my_savepoint;
+UPDATE accounts SET balance = balance + 100.00
+    WHERE name = 'Bob';
+-- oops ... forget that and use Wally's account
+ROLLBACK TO my_savepoint;
+UPDATE accounts SET balance = balance + 100.00
+    WHERE name = 'Wally';
+COMMIT;
+</code></pre>
+<p>当然，这个例子是被过度简化的，但是在一个事务块中使用保存点存在很多种控制可能性。此外，ROLLBACK TO是唯一的途径来重新控制一个由于错误被系统置为中断状态的事务块，而不是完全回滚它并重新启动。</p>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://nnocase.github.io/tag/WxxHsNqVy/" class="tag">
+                    数据库
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://nnocase.github.io/post/python-m/">
+                  <h3 class="post-title">
+                    Python命令中的 -m 参数
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+
+
+  </body>
+</html>

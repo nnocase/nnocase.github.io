@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>用Python给图片添加水印 | Gridea</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://nnocase.github.io/favicon.ico?v=1615866188628">
+<link rel="stylesheet" href="https://nnocase.github.io/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="直接看代码：
+from PIL import Image,ImageDraw,ImageFont, ImageEnhance
+
+im = Image.open('my_pic.jpeg')
+
+w, h = im.size
+
+watermar..." />
+    <meta name="keywords" content="Python" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://nnocase.github.io">
+        <img src="https://nnocase.github.io/images/avatar.png?v=1615866188628" class="site-logo">
+        <h1 class="site-title">Gridea</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://nnocase.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">用Python给图片添加水印</h2>
+            <div class="post-date">2021-03-15</div>
+            
+            <div class="post-content" v-pre>
+              <p>直接看代码：</p>
+<pre><code class="language-python">from PIL import Image,ImageDraw,ImageFont, ImageEnhance
+
+im = Image.open('my_pic.jpeg')
+
+w, h = im.size
+
+watermark = Image.new('RGBA', im.size) # 水印
+
+draw = ImageDraw.Draw(watermark, 'RGBA')
+
+# 设置文字大小
+
+font_size = 50
+
+# 设置字体
+font_file = &quot;simsun.ttc&quot;
+
+font = ImageFont.truetype(font_file,font_size )
+
+draw.text((10, 20), '这是水印内容', fill=&quot;#ff0000&quot;, font=font)
+# 第一个参数：表示文字起始坐标
+# 第二个参数：表示写入内容
+# fill：表示颜色
+# font：字体
+
+
+# 旋转 45 度
+# watermark = watermark.rotate(45, Image.BICUBIC)
+watermark = watermark.rotate(0, Image.BICUBIC)
+
+# 透明的
+alpha = watermark.split()[3]
+alpha = ImageEnhance.Brightness(alpha).enhance(0.7)
+watermark.putalpha(alpha)
+
+# 合成新的图片
+n = Image.composite(watermark, im, watermark)
+n.save('new_watermark.jpeg', 'JPEG')
+</code></pre>
+<p>效果：</p>
+<figure data-type="image" tabindex="1"><img src="https://img.icenglou.cn/158926954904996767457.jpeg" alt="" loading="lazy"></figure>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://nnocase.github.io/tag/WXVyjERxM/" class="tag">
+                    Python
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://nnocase.github.io/post/pei-zhi-cdn-jia-su/">
+                  <h3 class="post-title">
+                    配置CDN加速
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+
+
+  </body>
+</html>

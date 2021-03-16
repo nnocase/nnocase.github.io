@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>配置CDN加速 | Gridea</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://nnocase.github.io/favicon.ico?v=1615866188628">
+<link rel="stylesheet" href="https://nnocase.github.io/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="发现访问博客时图片渲染过慢，于是打算给博客配置CDN加速。目前阿里云有付费的CDN方案，怎奈实在囊中羞涩，只好寻求免费的CDN
+
+
+CDN （Content Delivery Network or Content Ddistribute N..." />
+    <meta name="keywords" content="服务器" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://nnocase.github.io">
+        <img src="https://nnocase.github.io/images/avatar.png?v=1615866188628" class="site-logo">
+        <h1 class="site-title">Gridea</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://nnocase.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">配置CDN加速</h2>
+            <div class="post-date">2021-03-15</div>
+            
+              <div class="feature-container" style="background-image: url('https://nnocase.github.io/post-images/pei-zhi-cdn-jia-su.jpg')">
+              </div>
+            
+            <div class="post-content" v-pre>
+              <p>发现访问博客时图片渲染过慢，于是打算给博客配置CDN加速。目前阿里云有付费的CDN方案，怎奈实在囊中羞涩，只好寻求免费的CDN</p>
+<!-- more -->
+<blockquote>
+<p>CDN （Content Delivery Network or Content Ddistribute Network）内容分发网络。其目的是使用户可就近取得所需内容，解决 Internet网络拥挤的状况，提高用户访问网站的响应速度。类似分布各地的物流仓储网络，CDN网络可以将源站的内容缓存到分布全球的CDN节点，根据用户的访问IP，就近连接CDN，提高网站响应速度。<br>
+一般的网站只有一台或一组服务器，用户访问站点时请求需要跨越复杂的路由链路，抵达网站服务器，经过tcp三次握手建立连接，服务器才会将站点数据传输给用户。<br>
+使用CDN加速后，CDN在全球的分布式节点将会拷贝一份源站的数据（图片、js、html等等），称为缓存，用户在访问源站域名时会被DNS解析到最近的CDN服务器，并且访问缓存资源。<br>
+普通的网站访问流程和使用CDN的网站访问如下图，其中蓝色链路是无CDN的链路</p>
+</blockquote>
+<figure data-type="image" tabindex="1"><img src="https://img.icenglou.cn/158890297269543004475.png" alt="" loading="lazy"></figure>
+<blockquote>
+<p>作者：MachinePlay<br>
+链接：<a href="https://www.jianshu.com/p/18e74c088133" title="https://www.jianshu.com/p/18e74c088133">https://www.jianshu.com/p/18e74c088133</a><br>
+来源：简书</p>
+</blockquote>
+<p>搜了下，最后选择了<a href="https://www.cloudflare.com/zh-cn/plans/" title="CloudFlare">CloudFlare</a><br>
+1、注册账号<br>
+2、添加站点，输入自己的域名（只需跟域名——一级域名）<br>
+3、选择免费的套餐，确认，跳过<br>
+4、这里给到两个DNS解析服务器，需要到域名注册商修改DNS解析服务器（这里我用的阿里云），修改会收到短信验证<br>
+5、修改完后，点击完成，稍等一会收到邮件代表成功了</p>
+<p>这是ping一下自己的网站就能看到访问的IP变了</p>
+<p>没CDN前：</p>
+<pre><code class="language-shell">~$ ping www.icenglou.cn
+PING www.icenglou.cn (47.106.85.122): 56 data bytes
+64 bytes from 47.106.**.*22: icmp_seq=0 ttl=52 time=8.926 ms
+64 bytes from 47.106.**.*22: icmp_seq=1 ttl=52 time=8.836 ms
+64 bytes from 47.106.**.*22: icmp_seq=2 ttl=52 time=9.943 ms
+64 bytes from 47.106.**.*22: icmp_seq=3 ttl=52 time=16.017 ms
+</code></pre>
+<p>CDN加速后：</p>
+<pre><code class="language-shell">~$ ping www.icenglou.cn
+PING www.icenglou.cn (47.106.85.122): 56 data bytes
+64 bytes from 104.28.**.*6: icmp_seq=0 ttl=52 time=8.926 ms
+64 bytes from 47.106.**.*22: icmp_seq=1 ttl=52 time=8.836 ms
+64 bytes from 104.28.**.*6: icmp_seq=2 ttl=52 time=9.943 ms
+64 bytes from 47.106.**.*22: icmp_seq=3 ttl=52 time=16.017 ms
+</code></pre>
+<p>访问一下博客，确实感觉快了点（不知道是不是心理作用，免费套餐的节点还是比较少的）</p>
+<p><a href="https://zhuanlan.zhihu.com/p/105801731" title="转载自：知乎每日VPS老谢">转载自：知乎每日VPS老谢</a></p>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://nnocase.github.io/tag/RinRSJOrP/" class="tag">
+                    服务器
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://nnocase.github.io/post/yong-python-de-opencv-ku-shi-xian-yi-jian-mei-yan-gong-neng/">
+                  <h3 class="post-title">
+                    用Python的OpenCV库实现一键美颜功能
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://nnocase.github.io</id>
+    <title>Gridea</title>
+    <updated>2021-03-16T03:43:10.406Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://nnocase.github.io"/>
+    <link rel="self" href="https://nnocase.github.io/atom.xml"/>
+    <subtitle>温故而知新</subtitle>
+    <logo>https://nnocase.github.io/images/avatar.png</logo>
+    <icon>https://nnocase.github.io/favicon.ico</icon>
+    <rights>All rights reserved 2021, Gridea</rights>
+    <entry>
+        <title type="html"><![CDATA[用Python给图片添加水印]]></title>
+        <id>https://nnocase.github.io/post/yong-python-gei-tu-pian-tian-jia-shui-yin/</id>
+        <link href="https://nnocase.github.io/post/yong-python-gei-tu-pian-tian-jia-shui-yin/">
+        </link>
+        <updated>2021-03-15T09:25:05.000Z</updated>
+        <content type="html"><![CDATA[<p>直接看代码：</p>
+<pre><code class="language-python">from PIL import Image,ImageDraw,ImageFont, ImageEnhance
+
+im = Image.open('my_pic.jpeg')
+
+w, h = im.size
+
+watermark = Image.new('RGBA', im.size) # 水印
+
+draw = ImageDraw.Draw(watermark, 'RGBA')
+
+# 设置文字大小
+
+font_size = 50
+
+# 设置字体
+font_file = &quot;simsun.ttc&quot;
+
+font = ImageFont.truetype(font_file,font_size )
+
+draw.text((10, 20), '这是水印内容', fill=&quot;#ff0000&quot;, font=font)
+# 第一个参数：表示文字起始坐标
+# 第二个参数：表示写入内容
+# fill：表示颜色
+# font：字体
+
+
+# 旋转 45 度
+# watermark = watermark.rotate(45, Image.BICUBIC)
+watermark = watermark.rotate(0, Image.BICUBIC)
+
+# 透明的
+alpha = watermark.split()[3]
+alpha = ImageEnhance.Brightness(alpha).enhance(0.7)
+watermark.putalpha(alpha)
+
+# 合成新的图片
+n = Image.composite(watermark, im, watermark)
+n.save('new_watermark.jpeg', 'JPEG')
+</code></pre>
+<p>效果：</p>
+<figure data-type="image" tabindex="1"><img src="https://img.icenglou.cn/158926954904996767457.jpeg" alt="" loading="lazy"></figure>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[配置CDN加速]]></title>
+        <id>https://nnocase.github.io/post/pei-zhi-cdn-jia-su/</id>
+        <link href="https://nnocase.github.io/post/pei-zhi-cdn-jia-su/">
+        </link>
+        <updated>2021-03-15T08:46:06.000Z</updated>
+        <summary type="html"><![CDATA[<p>发现访问博客时图片渲染过慢，于是打算给博客配置CDN加速。目前阿里云有付费的CDN方案，怎奈实在囊中羞涩，只好寻求免费的CDN</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>发现访问博客时图片渲染过慢，于是打算给博客配置CDN加速。目前阿里云有付费的CDN方案，怎奈实在囊中羞涩，只好寻求免费的CDN</p>
+<!-- more -->
+<blockquote>
+<p>CDN （Content Delivery Network or Content Ddistribute Network）内容分发网络。其目的是使用户可就近取得所需内容，解决 Internet网络拥挤的状况，提高用户访问网站的响应速度。类似分布各地的物流仓储网络，CDN网络可以将源站的内容缓存到分布全球的CDN节点，根据用户的访问IP，就近连接CDN，提高网站响应速度。<br>
+一般的网站只有一台或一组服务器，用户访问站点时请求需要跨越复杂的路由链路，抵达网站服务器，经过tcp三次握手建立连接，服务器才会将站点数据传输给用户。<br>
+使用CDN加速后，CDN在全球的分布式节点将会拷贝一份源站的数据（图片、js、html等等），称为缓存，用户在访问源站域名时会被DNS解析到最近的CDN服务器，并且访问缓存资源。<br>
+普通的网站访问流程和使用CDN的网站访问如下图，其中蓝色链路是无CDN的链路</p>
+</blockquote>
+<figure data-type="image" tabindex="1"><img src="https://img.icenglou.cn/158890297269543004475.png" alt="" loading="lazy"></figure>
+<blockquote>
+<p>作者：MachinePlay<br>
+链接：<a href="https://www.jianshu.com/p/18e74c088133" title="https://www.jianshu.com/p/18e74c088133">https://www.jianshu.com/p/18e74c088133</a><br>
+来源：简书</p>
+</blockquote>
+<p>搜了下，最后选择了<a href="https://www.cloudflare.com/zh-cn/plans/" title="CloudFlare">CloudFlare</a><br>
+1、注册账号<br>
+2、添加站点，输入自己的域名（只需跟域名——一级域名）<br>
+3、选择免费的套餐，确认，跳过<br>
+4、这里给到两个DNS解析服务器，需要到域名注册商修改DNS解析服务器（这里我用的阿里云），修改会收到短信验证<br>
+5、修改完后，点击完成，稍等一会收到邮件代表成功了</p>
+<p>这是ping一下自己的网站就能看到访问的IP变了</p>
+<p>没CDN前：</p>
+<pre><code class="language-shell">~$ ping www.icenglou.cn
+PING www.icenglou.cn (47.106.85.122): 56 data bytes
+64 bytes from 47.106.**.*22: icmp_seq=0 ttl=52 time=8.926 ms
+64 bytes from 47.106.**.*22: icmp_seq=1 ttl=52 time=8.836 ms
+64 bytes from 47.106.**.*22: icmp_seq=2 ttl=52 time=9.943 ms
+64 bytes from 47.106.**.*22: icmp_seq=3 ttl=52 time=16.017 ms
+</code></pre>
+<p>CDN加速后：</p>
+<pre><code class="language-shell">~$ ping www.icenglou.cn
+PING www.icenglou.cn (47.106.85.122): 56 data bytes
+64 bytes from 104.28.**.*6: icmp_seq=0 ttl=52 time=8.926 ms
+64 bytes from 47.106.**.*22: icmp_seq=1 ttl=52 time=8.836 ms
+64 bytes from 104.28.**.*6: icmp_seq=2 ttl=52 time=9.943 ms
+64 bytes from 47.106.**.*22: icmp_seq=3 ttl=52 time=16.017 ms
+</code></pre>
+<p>访问一下博客，确实感觉快了点（不知道是不是心理作用，免费套餐的节点还是比较少的）</p>
+<p><a href="https://zhuanlan.zhihu.com/p/105801731" title="转载自：知乎每日VPS老谢">转载自：知乎每日VPS老谢</a></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[用Python的OpenCV库实现一键美颜功能]]></title>
+        <id>https://nnocase.github.io/post/yong-python-de-opencv-ku-shi-xian-yi-jian-mei-yan-gong-neng/</id>
+        <link href="https://nnocase.github.io/post/yong-python-de-opencv-ku-shi-xian-yi-jian-mei-yan-gong-neng/">
+        </link>
+        <updated>2019-03-12T09:48:35.000Z</updated>
+        <summary type="html"><![CDATA[<p>最近在研究图片处理方面的python第三方库。了解到OpenCV是这图像处理方面的集大成者了。</p>
+<blockquote>
+<p>OpenCV的全称是Open Source Computer Vision Library，是一个跨平台的计算机视觉库。OpenCV是由英特尔公司发起并参与开发，以BSD许可证授权发行，可以在商业和研究领域中免费使用。</p>
+</blockquote>
+]]></summary>
+        <content type="html"><![CDATA[<p>最近在研究图片处理方面的python第三方库。了解到OpenCV是这图像处理方面的集大成者了。</p>
+<blockquote>
+<p>OpenCV的全称是Open Source Computer Vision Library，是一个跨平台的计算机视觉库。OpenCV是由英特尔公司发起并参与开发，以BSD许可证授权发行，可以在商业和研究领域中免费使用。</p>
+</blockquote>
+<!-- more -->
+<p>OpenCV可用于开发实时的图像处理、计算机视觉以及模式识别程序。该程序库也可以使用英特尔公司的IPP进行加速处理。<a href="https://zh.wikipedia.org/wiki/OpenCV" title="来自维基百科">来自维基百科</a></p>
+<p>于是，做了一个“一键美颜”的网页工具：<a href="https://www.icenglou.cn/tool/beauty" title="一键美颜">一键美颜</a></p>
+<p>所谓美颜，市场上已有的大部分美颜工具就是对图片人脸图片中较为粗糙的部分进行磨皮，即在一幅图中，我们看起来的非常粗糙的点，可以视作是一些噪声，而我们就需要借助工具去去除这些噪声，使得图像看起来更加平滑。</p>
+<p>这里我用到的是<strong>双边滤波</strong>来过滤掉这些噪声。双边滤波是将图像的像素点从空间上的邻近程度，和像素值之间的相似程度两个方面去考虑，从而叫做双边，即同时考虑两方面的信息。<br>
+<strong>双边滤波可以很好的保留图像中的边缘细节，使得我们的图像在很好的过滤噪声的同时，使得图像不会过于的失真，也就是使得图像看起来很自然，P的痕迹不明显。</strong>  —<a href="https://mp.weixin.qq.com/s/32LYirKfK8tkLM1xc2cl2A" title="转自公众号菜鸟学Python">转自公众号菜鸟学Python</a></p>
+<p>OpenCV中有集成这个算法，<code>cv.bilateralFilter ()</code></p>
+<pre><code class="language-python">import cv2
+# 可更改value调整滤波的程度
+value = 28
+
+def Beauty(path, filename):
+    img = cv2.imread(path)
+    img_res = cv2.bilateralFilter(img, value, value * 2, value / 2)
+    filename = './static/out/{}'.format(filename)
+    cv2.imwrite(filename, img_res)
+    return filename
+</code></pre>
+<p>这个 value 值表示在过滤的过程中，图像中的每个像素领域的直径范围，这个值越大，图片中的噪声滤除的越好，但是图片看上去也会越像是P过的，而这个值越小，则图片美颜的效果会越差。测试后，发现value=28时效果较好。</p>
+<p>以下是美颜对比图</p>
+<figure data-type="image" tabindex="1"><img src="https://img.icenglou.cn/15894387493265206297.png" alt="" loading="lazy"></figure>
+<p>卡通图也可以美颜</p>
+<figure data-type="image" tabindex="2"><img src="https://img.icenglou.cn/15894393478119162657.jpg" alt="嘶～" title="嘶～" loading="lazy"></figure>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[事务的理解]]></title>
+        <id>https://nnocase.github.io/post/understanding-of-affairs/</id>
+        <link href="https://nnocase.github.io/post/understanding-of-affairs/">
+        </link>
+        <updated>2018-12-11T16:00:00.000Z</updated>
+        <summary type="html"><![CDATA[<h4 id="事务基于postgresql">事务(基于PostgreSQL)</h4>
+<p>事务最重要的一点就是<strong>将多个步骤捆绑成一个单一的、要么全完成要么全不完成</strong>的操作</p>
+<p>例如，考虑一个保存着多个客户账户余额和支行总存款额的银行数据库。假设我们希望记录一笔从Alice的账户到Bob的账户的额度为100.00美元的转账。在最大程度地简化后，涉及到的SQL命令是：</p>
+]]></summary>
+        <content type="html"><![CDATA[<h4 id="事务基于postgresql">事务(基于PostgreSQL)</h4>
+<p>事务最重要的一点就是<strong>将多个步骤捆绑成一个单一的、要么全完成要么全不完成</strong>的操作</p>
+<p>例如，考虑一个保存着多个客户账户余额和支行总存款额的银行数据库。假设我们希望记录一笔从Alice的账户到Bob的账户的额度为100.00美元的转账。在最大程度地简化后，涉及到的SQL命令是：</p>
+<!-- more -->
+<pre><code class="language-sql">UPDATE accounts SET balance = balance - 100.00
+    WHERE name = 'Alice';
+UPDATE branches SET balance = balance - 100.00
+    WHERE name = (SELECT branch_name FROM accounts WHERE name = 'Alice');
+UPDATE accounts SET balance = balance + 100.00
+    WHERE name = 'Bob';
+UPDATE branches SET balance = balance + 100.00
+    WHERE name = (SELECT branch_name FROM accounts WHERE name = 'Bob');
+</code></pre>
+<p>显而易见，为了完成这样一个简单的操作，数据库涉及到了多个独立的更新。但是独立的更新不能保障数据的一致性，不能发生因为系统错误导致Bob收到100美元而Alice并未被扣款的情况。这个时候就需要将这些更新组织成一个事务了，因为事务具有原子性和一致性：</p>
+<h5 id="1-原子性-atomicity">1、原子性 ——Atomicity</h5>
+<p><strong>事务里的所有操作要么一起成功，要么一起失败回滚。</strong></p>
+<h5 id="2-一致性-consistency">2、一致性 ——Consistency</h5>
+<p><strong>数据在事务执行前后，从一个一致性状态转变至另一个一致性状态。</strong></p>
+<p>同时，一个事务被数据库系统完成并认可，我们也希望永久地记录下来且即便其后发生崩溃也不会被丢失。例如，如果我们正在记录Bob的一次现金提款，我们当然不希望他刚走出银行大门，对他账户的扣款就消失。一个事务型数据库保证一个事务在被报告为完成之前它所做的所有更新都被记录在持久存储（即磁盘）。这就是事务的另一个特性——持久性</p>
+<h5 id="3-持久性-durability">3、持久性 ——Durability</h5>
+<p><strong>事务一旦提交，对数据库造成的影响是永久性的，即便数据库遭遇断网断电等故障，也不会丢失提交的更新。</strong></p>
+<p>但是，现在还有一个问题，现实中并不是只有一个Alice转账给Bob的情况，当多个事务并发生，如何保证数据的一致性？这里就要讲到事务的第四大特性——隔离性：</p>
+<h5 id="4-隔离性isolation">4、隔离性——Isolation</h5>
+<p><strong>当多个事务并发访问数据库时，各个事务之间应该是隔离的，独立的。一个事务不应该影响其他事务的效果。事务查看数据更新时，数据要么是其他事务执行前的状态，要么是其他事务执行后的状态，不能看到中间的状态。</strong></p>
+<p><strong>当多个事务并发运行时，每一个都不能看到其他事务未完成的修改。</strong></p>
+<p><strong>完全的隔离性只有事务串行执行，那样则不存在并发，效率很低，因此在开发中应结合业务需求设置事务的隔离级别，隔离级别越高，效率越低，反之，效率越高。四个隔离级别稍后介绍。</strong></p>
+<p>例如，如果一个事务正忙着总计所有支行的余额，它不会只包括Alice的支行的扣款而不包括Bob的支行的存款，或者反之。所以事务的全做或全不做并不只体现在它们对数据库的持久影响，也体现在它们发生时的可见性。一个事务所做的更新在它完成之前对于其他事务是不可见的，而之后所有的更新将同时变得可见。</p>
+<p>在PostgreSQL中，开启一个事务需要将SQL命令用BEGIN和COMMIT命令包围起来。因此我们的银行事务看起来会是这样：</p>
+<pre><code class="language-sql">BEGIN;
+UPDATE accounts SET balance = balance - 100.00
+    WHERE name = 'Alice';
+-- etc etc
+COMMIT;
+</code></pre>
+<p>如果，在事务执行中我们并不想提交（或许是我们注意到Alice的余额不足），我们可以发出ROLLBACK命令而不是COMMIT命令，这样所有目前的更新将会被取消。</p>
+<p>PostgreSQL实际上将每一个SQL语句都作为一个事务来执行。如果我们没有发出BEGIN命令，则每个独立的语句都会被加上一个隐式的BEGIN以及（如果成功）COMMIT来包围它。一组被BEGIN和COMMIT包围的语句也被称为一个事务块。</p>
+<blockquote>
+<p>注意<br>
+某些客户端库会自动发出BEGIN和COMMIT命令，因此我们可能会在不被告知的情况下得到事务块的效果。</p>
+</blockquote>
+<p>也可以利用保存点来以更细的粒度来控制一个事务中的语句。保存点允许我们有选择性地放弃事务的一部分而提交剩下的部分。在使用SAVEPOINT定义一个保存点后，我们可以在必要时利用ROLLBACK TO回滚到该保存点。该事务中位于保存点和回滚点之间的数据库修改都会被放弃，但是早于该保存点的修改则会被保存。</p>
+<p>在回滚到保存点之后，它的定义依然存在，因此我们可以多次回滚到它。反过来，如果确定不再需要回滚到特定的保存点，它可以被释放以便系统释放一些资源。记住不管是释放保存点还是回滚到保存点都会释放定义在该保存点之后的所有其他保存点。</p>
+<p>所有这些都发生在一个事务块内，因此这些对于其他数据库会话都不可见。当提交整个事务块时，被提交的动作将作为一个单元变得对其他会话可见，而被回滚的动作则永远不会变得可见。</p>
+<p>记住那个银行数据库，假设我们从Alice的账户扣款100美元，然后存款到Bob的账户，结果直到最后才发现我们应该存到Wally的账户。我们可以通过使用保存点来做这件事：</p>
+<pre><code class="language-sql">BEGIN;
+UPDATE accounts SET balance = balance - 100.00
+    WHERE name = 'Alice';
+SAVEPOINT my_savepoint;
+UPDATE accounts SET balance = balance + 100.00
+    WHERE name = 'Bob';
+-- oops ... forget that and use Wally's account
+ROLLBACK TO my_savepoint;
+UPDATE accounts SET balance = balance + 100.00
+    WHERE name = 'Wally';
+COMMIT;
+</code></pre>
+<p>当然，这个例子是被过度简化的，但是在一个事务块中使用保存点存在很多种控制可能性。此外，ROLLBACK TO是唯一的途径来重新控制一个由于错误被系统置为中断状态的事务块，而不是完全回滚它并重新启动。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Python命令中的 -m 参数]]></title>
+        <id>https://nnocase.github.io/post/python-m/</id>
+        <link href="https://nnocase.github.io/post/python-m/">
+        </link>
+        <updated>2018-11-05T05:37:43.000Z</updated>
+        <summary type="html"><![CDATA[<p>首先看一下python --help里的帮助文档<br>
+“mod“是module的缩写，即“-m“选项后面的内容是 module（模块），其作用是把模块当成脚本来运行。</p>
+<p>“terminates option list”意味着“-m”之后的其它选项不起作用，在这点上它跟“-c”是一样的，都是“终极选项”。官方把它们定义为“接口选项”（Interface options），需要区别于其它的普通选项或通用选项。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>首先看一下python --help里的帮助文档<br>
+“mod“是module的缩写，即“-m“选项后面的内容是 module（模块），其作用是把模块当成脚本来运行。</p>
+<p>“terminates option list”意味着“-m”之后的其它选项不起作用，在这点上它跟“-c”是一样的，都是“终极选项”。官方把它们定义为“接口选项”（Interface options），需要区别于其它的普通选项或通用选项。</p>
+<!-- more -->
+<pre><code class="language-python">$ python --help
+Options and arguments (and corresponding environment variables):
+-b     : issue warnings about comparing bytearray with unicode
+         (-bb: issue errors)
+-B     : don't write .py[co] files on import; also PYTHONDONTWRITEBYTECODE=x
+-c cmd : program passed in as string (terminates option list)
+-d     : debug output from parser; also PYTHONDEBUG=x
+-E     : ignore PYTHON* environment variables (such as PYTHONPATH)
+-h     : print this help message and exit (also --help)
+-i     : inspect interactively after running script; forces a prompt even
+         if stdin does not appear to be a terminal; also PYTHONINSPECT=x
+-m mod : run library module as a script (terminates option list)
+-O     : optimize generated bytecode slightly; also PYTHONOPTIMIZE=x
+-OO    : remove doc-strings in addition to the -O optimizations
+-R     : use a pseudo-random salt to make hash() values of various types be
+         unpredictable between separate invocations of the interpreter, as
+         a defense against denial-of-service attacks
+</code></pre>
+<blockquote>
+<p>-m  mod run library module as a script (terminates option list)</p>
+</blockquote>
+<h5 id="-m-选项的几个典型用法">-m 选项的几个典型用法</h5>
+<p>1、一行命令实现一个简单的HTTP服务</p>
+<pre><code class="language-python">python -m http.server 8000
+
+# 注:在 Python2 中是这样
+python -m SimpleHTTPServer 8000
+</code></pre>
+<p>执行后，在本机打开 “http://localhost:8000”， 或者在局域网内的其它机器上打开 “http://本机ip:8000” ，就能访问到执行目录下的内容。</p>
+<p>2、<code>python -m pydoc -p 8000</code><br>
+与第一个类似，需要一行命令“python -m pydoc -p 8000”，就能生成 HTML 格式的官方帮助文档，可以在浏览器中访问。</p>
+<p>3、<code>python -m pdb xxx.py</code><br>
+执行 pdb 的调试命令“python -m pdb xxx.py”，以调试模式来执行“xxx.py”脚本</p>
+<p>4、<code>python -m timeit &quot;'-'.join(map(str, range(100)))&quot;</code><br>
+测试代码运行时间，多对比一些代码，可以直观的看出代码的效率差异。以此来优化自己的代码。</p>
+<p>5、<code>python -m pip install ...</code><br>
+可能我们已经习惯用“ pip install ... “来安装第三方库， 但是，Python 的核心开发者、第一届指导委员会五人成员之一的 Brett Cannon 专门写了一篇博客《Why you should use &quot;python -m pip&quot;》，提出应该使用“python -m pip”的方式，并做了详细的解释。</p>
+<p>他的主要观点是：在存在多个 Python 版本的环境中，这种写法可以精确地控制三方库的安装位置。例如用“python3.8 -m pip”，可以明确指定给 3.8 版本安装，而不会混淆成其它的版本。</p>
+<p>6、<code>python -m virtualenv env</code><br>
+创建项目的虚拟环境，前提是已经用“python -m install virtualenv “安装过这个库了。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[文件保存的一个小细节]]></title>
+        <id>https://nnocase.github.io/post/wen-jian-bao-cun-de-yi-ge-xiao-xi-jie/</id>
+        <link href="https://nnocase.github.io/post/wen-jian-bao-cun-de-yi-ge-xiao-xi-jie/">
+        </link>
+        <updated>2018-10-08T09:27:07.000Z</updated>
+        <content type="html"><![CDATA[<p>今天我在用flask做上传图片时， 我先将图片读取上传到七牛云，然后再保存在本地，却发现保存在本地图片是空的。</p>
+<p>查资料发现，原来当文件对象file_object被read()后，文件指针会指到最后，所以这时再save()，就只能从最后开始读取内容，内容自然为空。</p>
+<p>解决办法就是 file.seek(0)  重新将指针指到开头就可以保存了</p>
+<p>file object ——&gt; io.buffer ——&gt; read()</p>
+<pre><code class="language-python">imagefile = request.files.get('upimage') #上传的图片
+md5img = hashlib.md5(imagefile.read()).hexdigest() #图片的md5
+imagefile.seek(0)
+imagefile.save(file_path) #保存图片</code></pre>
+]]></content>
+    </entry>
+</feed>

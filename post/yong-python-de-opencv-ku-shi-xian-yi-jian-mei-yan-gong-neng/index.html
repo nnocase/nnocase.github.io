@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>用Python的OpenCV库实现一键美颜功能 | Gridea</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://nnocase.github.io/favicon.ico?v=1615866188628">
+<link rel="stylesheet" href="https://nnocase.github.io/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="最近在研究图片处理方面的python第三方库。了解到OpenCV是这图像处理方面的集大成者了。
+
+OpenCV的全称是Open Source Computer Vision Library，是一个跨平台的计算机视觉库。OpenCV是由英特尔..." />
+    <meta name="keywords" content="Python" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://nnocase.github.io">
+        <img src="https://nnocase.github.io/images/avatar.png?v=1615866188628" class="site-logo">
+        <h1 class="site-title">Gridea</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://nnocase.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">用Python的OpenCV库实现一键美颜功能</h2>
+            <div class="post-date">2019-03-12</div>
+            
+              <div class="feature-container" style="background-image: url('https://nnocase.github.io/post-images/yong-python-de-opencv-ku-shi-xian-yi-jian-mei-yan-gong-neng.jpg')">
+              </div>
+            
+            <div class="post-content" v-pre>
+              <p>最近在研究图片处理方面的python第三方库。了解到OpenCV是这图像处理方面的集大成者了。</p>
+<blockquote>
+<p>OpenCV的全称是Open Source Computer Vision Library，是一个跨平台的计算机视觉库。OpenCV是由英特尔公司发起并参与开发，以BSD许可证授权发行，可以在商业和研究领域中免费使用。</p>
+</blockquote>
+<!-- more -->
+<p>OpenCV可用于开发实时的图像处理、计算机视觉以及模式识别程序。该程序库也可以使用英特尔公司的IPP进行加速处理。<a href="https://zh.wikipedia.org/wiki/OpenCV" title="来自维基百科">来自维基百科</a></p>
+<p>于是，做了一个“一键美颜”的网页工具：<a href="https://www.icenglou.cn/tool/beauty" title="一键美颜">一键美颜</a></p>
+<p>所谓美颜，市场上已有的大部分美颜工具就是对图片人脸图片中较为粗糙的部分进行磨皮，即在一幅图中，我们看起来的非常粗糙的点，可以视作是一些噪声，而我们就需要借助工具去去除这些噪声，使得图像看起来更加平滑。</p>
+<p>这里我用到的是<strong>双边滤波</strong>来过滤掉这些噪声。双边滤波是将图像的像素点从空间上的邻近程度，和像素值之间的相似程度两个方面去考虑，从而叫做双边，即同时考虑两方面的信息。<br>
+<strong>双边滤波可以很好的保留图像中的边缘细节，使得我们的图像在很好的过滤噪声的同时，使得图像不会过于的失真，也就是使得图像看起来很自然，P的痕迹不明显。</strong>  —<a href="https://mp.weixin.qq.com/s/32LYirKfK8tkLM1xc2cl2A" title="转自公众号菜鸟学Python">转自公众号菜鸟学Python</a></p>
+<p>OpenCV中有集成这个算法，<code>cv.bilateralFilter ()</code></p>
+<pre><code class="language-python">import cv2
+# 可更改value调整滤波的程度
+value = 28
+
+def Beauty(path, filename):
+    img = cv2.imread(path)
+    img_res = cv2.bilateralFilter(img, value, value * 2, value / 2)
+    filename = './static/out/{}'.format(filename)
+    cv2.imwrite(filename, img_res)
+    return filename
+</code></pre>
+<p>这个 value 值表示在过滤的过程中，图像中的每个像素领域的直径范围，这个值越大，图片中的噪声滤除的越好，但是图片看上去也会越像是P过的，而这个值越小，则图片美颜的效果会越差。测试后，发现value=28时效果较好。</p>
+<p>以下是美颜对比图</p>
+<figure data-type="image" tabindex="1"><img src="https://img.icenglou.cn/15894387493265206297.png" alt="" loading="lazy"></figure>
+<p>卡通图也可以美颜</p>
+<figure data-type="image" tabindex="2"><img src="https://img.icenglou.cn/15894393478119162657.jpg" alt="嘶～" title="嘶～" loading="lazy"></figure>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://nnocase.github.io/tag/WXVyjERxM/" class="tag">
+                    Python
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://nnocase.github.io/post/understanding-of-affairs/">
+                  <h3 class="post-title">
+                    事务的理解
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+
+
+  </body>
+</html>

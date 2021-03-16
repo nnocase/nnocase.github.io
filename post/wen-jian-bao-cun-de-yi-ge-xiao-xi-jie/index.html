@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>文件保存的一个小细节 | Gridea</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://nnocase.github.io/favicon.ico?v=1615866188628">
+<link rel="stylesheet" href="https://nnocase.github.io/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="今天我在用flask做上传图片时， 我先将图片读取上传到七牛云，然后再保存在本地，却发现保存在本地图片是空的。
+查资料发现，原来当文件对象file_object被read()后，文件指针会指到最后，所以这时再save()，就只能从最后开始读..." />
+    <meta name="keywords" content="Python" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://nnocase.github.io">
+        <img src="https://nnocase.github.io/images/avatar.png?v=1615866188628" class="site-logo">
+        <h1 class="site-title">Gridea</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://nnocase.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">文件保存的一个小细节</h2>
+            <div class="post-date">2018-10-08</div>
+            
+            <div class="post-content" v-pre>
+              <p>今天我在用flask做上传图片时， 我先将图片读取上传到七牛云，然后再保存在本地，却发现保存在本地图片是空的。</p>
+<p>查资料发现，原来当文件对象file_object被read()后，文件指针会指到最后，所以这时再save()，就只能从最后开始读取内容，内容自然为空。</p>
+<p>解决办法就是 file.seek(0)  重新将指针指到开头就可以保存了</p>
+<p>file object ——&gt; io.buffer ——&gt; read()</p>
+<pre><code class="language-python">imagefile = request.files.get('upimage') #上传的图片
+md5img = hashlib.md5(imagefile.read()).hexdigest() #图片的md5
+imagefile.seek(0)
+imagefile.save(file_path) #保存图片</code></pre>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://nnocase.github.io/tag/WXVyjERxM/" class="tag">
+                    Python
+                  </a>
+                
+              </div>
+            
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+
+
+  </body>
+</html>
