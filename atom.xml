@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://nnocase.github.io</id>
+    <id>https://cl.icenglou.cn</id>
     <title>Gridea</title>
-    <updated>2021-03-16T07:08:33.839Z</updated>
+    <updated>2021-03-16T09:10:17.827Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://nnocase.github.io"/>
-    <link rel="self" href="https://nnocase.github.io/atom.xml"/>
+    <link rel="alternate" href="https://cl.icenglou.cn"/>
+    <link rel="self" href="https://cl.icenglou.cn/atom.xml"/>
     <subtitle>温故而知新</subtitle>
-    <logo>https://nnocase.github.io/images/avatar.png</logo>
-    <icon>https://nnocase.github.io/favicon.ico</icon>
+    <logo>https://cl.icenglou.cn/images/avatar.png</logo>
+    <icon>https://cl.icenglou.cn/favicon.ico</icon>
     <rights>All rights reserved 2021, Gridea</rights>
     <entry>
         <title type="html"><![CDATA[用Python给图片添加水印]]></title>
-        <id>https://nnocase.github.io/post/yong-python-gei-tu-pian-tian-jia-shui-yin/</id>
-        <link href="https://nnocase.github.io/post/yong-python-gei-tu-pian-tian-jia-shui-yin/">
+        <id>https://cl.icenglou.cn/post/yong-python-gei-tu-pian-tian-jia-shui-yin/</id>
+        <link href="https://cl.icenglou.cn/post/yong-python-gei-tu-pian-tian-jia-shui-yin/">
         </link>
         <updated>2021-03-15T09:25:05.000Z</updated>
         <content type="html"><![CDATA[<p>直接看代码：</p>
@@ -62,8 +62,8 @@ n.save('new_watermark.jpeg', 'JPEG')
     </entry>
     <entry>
         <title type="html"><![CDATA[配置CDN加速]]></title>
-        <id>https://nnocase.github.io/post/pei-zhi-cdn-jia-su/</id>
-        <link href="https://nnocase.github.io/post/pei-zhi-cdn-jia-su/">
+        <id>https://cl.icenglou.cn/post/pei-zhi-cdn-jia-su/</id>
+        <link href="https://cl.icenglou.cn/post/pei-zhi-cdn-jia-su/">
         </link>
         <updated>2021-03-15T08:46:06.000Z</updated>
         <summary type="html"><![CDATA[<p>发现访问博客时图片渲染过慢，于是打算给博客配置CDN加速。目前阿里云有付费的CDN方案，怎奈实在囊中羞涩，只好寻求免费的CDN</p>
@@ -111,8 +111,8 @@ PING www.icenglou.cn (47.106.85.122): 56 data bytes
     </entry>
     <entry>
         <title type="html"><![CDATA[用Python的OpenCV库实现一键美颜功能]]></title>
-        <id>https://nnocase.github.io/post/yong-python-de-opencv-ku-shi-xian-yi-jian-mei-yan-gong-neng/</id>
-        <link href="https://nnocase.github.io/post/yong-python-de-opencv-ku-shi-xian-yi-jian-mei-yan-gong-neng/">
+        <id>https://cl.icenglou.cn/post/yong-python-de-opencv-ku-shi-xian-yi-jian-mei-yan-gong-neng/</id>
+        <link href="https://cl.icenglou.cn/post/yong-python-de-opencv-ku-shi-xian-yi-jian-mei-yan-gong-neng/">
         </link>
         <updated>2019-03-12T09:48:35.000Z</updated>
         <summary type="html"><![CDATA[<p>最近在研究图片处理方面的python第三方库。了解到OpenCV是这图像处理方面的集大成者了。</p>
@@ -151,8 +151,8 @@ def Beauty(path, filename):
     </entry>
     <entry>
         <title type="html"><![CDATA[事务的理解]]></title>
-        <id>https://nnocase.github.io/post/understanding-of-affairs/</id>
-        <link href="https://nnocase.github.io/post/understanding-of-affairs/">
+        <id>https://cl.icenglou.cn/post/understanding-of-affairs/</id>
+        <link href="https://cl.icenglou.cn/post/understanding-of-affairs/">
         </link>
         <updated>2018-12-11T16:00:00.000Z</updated>
         <summary type="html"><![CDATA[<h4 id="事务基于postgresql">事务(基于PostgreSQL)</h4>
@@ -220,8 +220,8 @@ COMMIT;
     </entry>
     <entry>
         <title type="html"><![CDATA[Python命令中的 -m 参数]]></title>
-        <id>https://nnocase.github.io/post/python-m/</id>
-        <link href="https://nnocase.github.io/post/python-m/">
+        <id>https://cl.icenglou.cn/post/python-m/</id>
+        <link href="https://cl.icenglou.cn/post/python-m/">
         </link>
         <updated>2018-11-05T05:37:43.000Z</updated>
         <summary type="html"><![CDATA[<p>首先看一下python --help里的帮助文档<br>
@@ -276,8 +276,8 @@ python -m SimpleHTTPServer 8000
     </entry>
     <entry>
         <title type="html"><![CDATA[文件保存的一个小细节]]></title>
-        <id>https://nnocase.github.io/post/wen-jian-bao-cun-de-yi-ge-xiao-xi-jie/</id>
-        <link href="https://nnocase.github.io/post/wen-jian-bao-cun-de-yi-ge-xiao-xi-jie/">
+        <id>https://cl.icenglou.cn/post/wen-jian-bao-cun-de-yi-ge-xiao-xi-jie/</id>
+        <link href="https://cl.icenglou.cn/post/wen-jian-bao-cun-de-yi-ge-xiao-xi-jie/">
         </link>
         <updated>2018-10-08T09:27:07.000Z</updated>
         <content type="html"><![CDATA[<p>今天我在用flask做上传图片时， 我先将图片读取上传到七牛云，然后再保存在本地，却发现保存在本地图片是空的。</p>
