@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+
+<head>
+  <meta name="generator" content="Hexo 5.4.0">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel='dns-prefetch' href='//unpkg.com'>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" content="#f8f8f8">
+  <title>HTML页面转换成PDF - 层楼</title>
+
+  
+
+  
+    <meta name="description" content="方法一：用到的库  参考：http:&#x2F;&#x2F;kaito-kidd.com&#x2F;2015&#x2F;03&#x2F;12&#x2F;python-html2pdf&#x2F;import pdfkit用法: pdfkit.url(&amp;#x27;http:&#x2F;&#x2F;www.baidu.com&amp;#x27;, &amp;#x27;path&#x2F;out.pdf&amp;#x27;)  # 读取url转PDFpdfkit.html(&amp;#x27;path&#x2F;test.html&amp;#x27;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTML页面转换成PDF">
+<meta property="og:url" content="http://icenglou.cn/2019/10/15/HTML%E9%A1%B5%E9%9D%A2%E8%BD%AC%E5%8C%96%E6%88%90PDF/">
+<meta property="og:site_name" content="层楼">
+<meta property="og:description" content="方法一：用到的库  参考：http:&#x2F;&#x2F;kaito-kidd.com&#x2F;2015&#x2F;03&#x2F;12&#x2F;python-html2pdf&#x2F;import pdfkit用法: pdfkit.url(&amp;#x27;http:&#x2F;&#x2F;www.baidu.com&amp;#x27;, &amp;#x27;path&#x2F;out.pdf&amp;#x27;)  # 读取url转PDFpdfkit.html(&amp;#x27;path&#x2F;test.html&amp;#x27;">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-10-15T06:57:21.000Z">
+<meta property="article:modified_time" content="2022-05-06T16:54:48.978Z">
+<meta property="article:author" content="nnocase">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="HTML">
+<meta name="twitter:card" content="summary">
+  
+  
+
+  <!-- feed -->
+  
+    <link rel="alternate" href="/atom.xml" title="层楼" type="application/atom+xml">
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+
+  
+</head>
+
+<body>
+  
+
+
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left' layout='post'>
+    
+
+
+<header class="header">
+
+<div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://cdn.jsdelivr.net/gh/cdn-x/placeholder@1.0.2/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="https://tva1.sinaimg.cn/large/e6c9d24egy1h18fu9pburj2088086jri.jpg" onerror="javascript:this.classList.add('error');this.src='https://cdn.jsdelivr.net/gh/cdn-x/placeholder@1.0.1/image/2659360.svg';"></a><a class="title" href="/"><div class="main">层楼</div><div class="sub cap">少年不识愁滋味,爱上层楼.爱上层楼.</div></a></div>
+<nav class="menu dis-select"><a class="nav-item active" href="/">文章</a><a class="nav-item" href="/about/">关于</a><a class="nav-item" href="/friends/">友链</a><a class="nav-item" href="/about#comments">留言</a></nav></header>
+
+<div class="widgets">
+
+<div class="widget-wrap single" id="toc"><div class="widget-header cap dis-select"><span class="name">本文目录</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80%EF%BC%9A"><span class="toc-text">方法一：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C%E3%80%81"><span class="toc-text">方法二、</span></a></li></ol></div></div></div>
+
+
+</div>
+<footer class="footer dis-select"><div class="social-wrap"><a class="social" href="https://github.com/nnocase" target="_blank" rel="external nofollow noopener noreferrer"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/cdn-x/placeholder@1.0.3/social/08a41b181ce68.svg"/></a><a class="social" href="/about/#comments" rel="noopener noreferrer"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/cdn-x/placeholder@1.0.3/social/942ebbf1a4b91.svg"/></a></div></footer>
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+<div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" href="/">文章</a></div><div id="post-meta">发布于&nbsp;<time datetime="2019-10-15T06:57:21.000Z">2019-10-15</time></div></div>
+
+<article class='content md post'>
+<h1 class="article-title"><span>HTML页面转换成PDF</span></h1>
+<h5 id="方法一："><a href="#方法一：" class="headerlink" title="方法一："></a>方法一：</h5><p>用到的库  参考：<a target="_blank" rel="noopener" href="http://kaito-kidd.com/2015/03/12/python-html2pdf/">http://kaito-kidd.com/2015/03/12/python-html2pdf/</a><br><code>import pdfkit</code><br>用法:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">pdfkit.url(<span class="string">&#x27;http://www.baidu.com&#x27;</span>, <span class="string">&#x27;path/out.pdf&#x27;</span>)  <span class="comment"># 读取url转PDF</span></span><br><span class="line"></span><br><span class="line">pdfkit.html(<span class="string">&#x27;path/test.html&#x27;</span>, <span class="string">&#x27;path/out.pdf&#x27;</span>)   <span class="comment"># html页面转PDF</span></span><br><span class="line"></span><br><span class="line">pdfkit.string(<span class="string">&#x27;hello!&#x27;</span>, <span class="string">&#x27;path/out.pdf&#x27;</span>) .  <span class="comment"># 字符串转PDF</span></span><br></pre></td></tr></table></figure>
+<p>实例代码:</p>
+<span id="more"></span>
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">html = render_template(<span class="string">&#x27;path.html&#x27;</span>, items=items)</span><br><span class="line"><span class="comment"># 页面用到的css文件</span></span><br><span class="line">css = [current_app.root_path + url_for(<span class="string">&#x27;static&#x27;</span>, filename=<span class="string">&#x27;path.css&#x27;</span>),</span><br><span class="line">       current_app.root_path + url_for(<span class="string">&#x27;static&#x27;</span>, filename=<span class="string">&#x27;path.js&#x27;</span>)]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 一些API</span></span><br><span class="line"><span class="comment"># 导出的PDF页面参数的设置</span></span><br><span class="line">options = &#123;</span><br><span class="line">    <span class="string">&#x27;page-size&#x27;</span>: <span class="string">&#x27;Letter&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;margin-top&#x27;</span>: <span class="string">&#x27;0.25in&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;margin-right&#x27;</span>: <span class="string">&#x27;0.2in&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;margin-bottom&#x27;</span>: <span class="string">&#x27;0.25in&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;margin-left&#x27;</span>: <span class="string">&#x27;0.2in&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">filename = <span class="string">&#x27;path/filename.pdf&#x27;</span></span><br><span class="line">pdfkit.from_string(html, filename, css=css, options=options)</span><br></pre></td></tr></table></figure>
+
+<p>这个方法比较缺点是，页面渲染很难调，页面样式不兼容，中文乱码等问题。<a target="_blank" rel="noopener" href="https://izsk.me/2017/09/13/%E7%94%A8python%E5%B0%86html%E9%A1%B5%E9%9D%A2%E8%BD%AC%E6%8D%A2%E6%88%90pdf%E6%96%87%E4%BB%B6,%E9%A1%BA%E4%BE%BF%E8%A7%A3%E5%86%B3%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81/">解决中文乱码</a><br>不建议在生产环境中使用，有坑。<a target="_blank" rel="noopener" href="https://www.v2ex.com/t/523744">生产环境X server问题</a></p>
+<h5 id="方法二、"><a href="#方法二、" class="headerlink" title="方法二、"></a>方法二、</h5><p>xhtml2pdf<br><a target="_blank" rel="noopener" href="https://xhtml2pdf.readthedocs.io/en/latest/">官方文档</a></p>
+<p>示例代码：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> xhtml2pdf <span class="keyword">import</span> pisa</span><br><span class="line"></span><br><span class="line"><span class="comment"># Define your data</span></span><br><span class="line">sourceHtml = <span class="string">&quot;&lt;html&gt;&lt;body&gt;&lt;p&gt;To PDF or not to PDF&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;&quot;</span></span><br><span class="line">outputFilename = <span class="string">&quot;test.pdf&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Utility function</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">convertHtmlToPdf</span>(<span class="params">sourceHtml, outputFilename</span>):</span></span><br><span class="line">    <span class="comment"># open output file for writing (truncated binary)</span></span><br><span class="line">    resultFile = <span class="built_in">open</span>(outputFilename, <span class="string">&quot;w+b&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># convert HTML to PDF</span></span><br><span class="line">    pisaStatus = pisa.CreatePDF(</span><br><span class="line">            sourceHtml,                <span class="comment"># the HTML to convert</span></span><br><span class="line">            dest=resultFile)           <span class="comment"># file handle to recieve result</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># close output file</span></span><br><span class="line">    resultFile.close()                 <span class="comment"># close output file</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># return True on success and False on errors</span></span><br><span class="line">    <span class="keyword">return</span> pisaStatus.err</span><br><span class="line"></span><br><span class="line"><span class="comment"># Main program</span></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    pisa.showLogging()</span><br><span class="line">    convertHtmlToPdf(sourceHtml, outputFilename)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>也可以生成PDF文件不存在本地，直接响应PDF文件，声明<code>application/pdf</code>文件类型</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 渲染页面 这里用到的是flask框架</span></span><br><span class="line">html = render_template(<span class="string">&#x27;path/report_detail.html&#x27;</span>, </span><br><span class="line">                        data=data, <span class="comment"># 页面要渲染的数据</span></span><br><span class="line">                        font_path=<span class="string">&#x27;path/msyh.ttf&#x27;</span>,  <span class="comment"># 因为是PDF文件的中文编码问题，所以要指定兼容中文的字体文件</span></span><br><span class="line">                        logo=<span class="string">&#x27;path/assets/images/logo/dianyi_logo.jpg&#x27;</span>)  <span class="comment"># 静态文件都要用这种方式传过去</span></span><br><span class="line">                       </span><br><span class="line">                        <span class="comment"># 因为css，和js 在生成的PDF文件里样式并不一定生效，所以干脆不传样式文件了。（所以只能生成一下简单一点的PDF文件了）</span></span><br><span class="line"></span><br><span class="line">filename = <span class="string">&#x27;report.pdf&#x27;</span></span><br><span class="line">result = BytesIO() <span class="comment"># 打开字节流</span></span><br><span class="line"><span class="comment"># 生成pdf</span></span><br><span class="line">pdf = pisa.CreatePDF(BytesIO(html.encode(<span class="string">&#x27;utf-8&#x27;</span>)), result, encoding=<span class="string">&#x27;utf-8&#x27;</span>)  <span class="comment"># 生成PDF文件</span></span><br><span class="line">resp = make_response(result.getvalue())  <span class="comment"># 生成http-Response 响应的就是PDF文件的值</span></span><br><span class="line">result.close()</span><br><span class="line">resp.headers[<span class="string">&quot;Content-Disposition&quot;</span>] = (<span class="string">f&quot;inline; filename=&#x27;<span class="subst">&#123;filename&#125;</span>&#x27;&quot;</span>)  <span class="comment"># inline 是在浏览器预览，attachment 是直接下载</span></span><br><span class="line">resp.headers[<span class="string">&#x27;Content-Type&#x27;</span>] = <span class="string">&#x27;application/pdf&#x27;</span></span><br><span class="line">resp.headers[<span class="string">&#x27;verify&#x27;</span>] = <span class="string">&#x27;false&#x27;</span></span><br><span class="line"><span class="keyword">return</span> resp</span><br></pre></td></tr></table></figure>
+
+<div class="article-footer reveal fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div></section></div>
+
+</article>
+
+<div class="related-wrap reveal" id="read-next"><section class="header cap theme"><span>接下来阅读</span></section><section class="body fs14"><a id="next" href="/2019/07/15/Ubuntu%E8%BD%AF%E4%BB%B6%E5%8C%85%E6%9B%B4%E6%96%B0/">Ubuntu软件包更新<span class="note">较早</span></a><div class="line"></div><a id="prev" href="/2022/04/27/Mac%E7%AB%AF%E5%8F%A35000%E8%A2%ABControlCe%E5%8D%A0%E7%94%A8%E7%9A%84%E9%97%AE%E9%A2%98/">Mac端口5000被ControlCe占用的问题<span class="note">较新</span></a></section></div>
+
+
+
+
+
+
+  <div class='related-wrap md reveal' id="comments">
+    <div class='cmt-title cap theme'>
+      快来参与讨论吧
+    </div>
+    <div class='cmt-body beaudar'>
+      
+
+<svg class="loading" style="vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2709"><path d="M832 512c0-176-144-320-320-320V128c211.2 0 384 172.8 384 384h-64zM192 512c0 176 144 320 320 320v64C300.8 896 128 723.2 128 512h64z" p-id="2710"></path></svg>
+
+<div id="beaudar" repo="nnocase/blog-comments" issue-term="pathname" theme="preferred-color-scheme" input-position="top" comment-order="desc" loading="false" branch="main"></div>
+
+    </div>
+  </div>
+
+
+
+      
+<footer class="page-footer reveal fs12"><hr><div class="text"><p>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+<p>本站由 <a href="http://icenglou.cn/">@nnocase</a> 创建，使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.7.0" title="v1.7.0">Stellar</a> 作为主题，您可以在 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar">GitHub</a> 找到本站源码。</p>
+</div></footer>
+
+      <div class='float-panel mobile-only blur' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15301"><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 2.3 26.8 24.6 47.5 51.6 47.6h416.5v4z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15302"></path><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 1.9 27.7 23.9 49.7 51.6 51.6h416.5z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15303"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.7.0';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js',
+    sitesjs: '/js/plugins/sites.js',
+    friendsjs: '/js/plugins/friends.js',
+  };
+
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper@6/swiper-bundle.min.css","js":"https://unpkg.com/swiper@6/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://cdn.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.fancybox = Object.assign({"enable":true,"js":"https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js","css":"https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css","selector":".swiper-slide img"});
+  }
+  if ('false' == 'true') {
+    stellar.plugins.heti = Object.assign({"enable":false,"css":"https://unpkg.com/heti/umd/heti.min.css","js":"https://unpkg.com/heti/umd/heti-addon.min.js"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+  <script>
+  function loadBeaudar() {
+    const els = document.querySelectorAll("#comments #beaudar");
+    if (els.length === 0) return;
+    els.forEach((el, i) => {
+      try {
+        el.innerHTML = '';
+      } catch (error) {
+        console.log(error);
+      }
+      var script = document.createElement('script');
+      script.src = 'https://beaudar.lipk.org/client.js';
+      script.async = true;
+      for (let key of Object.keys(el.attributes)) {
+        let attr = el.attributes[key];
+        if (['class', 'id'].includes(attr.name) === false) {
+          script.setAttribute(attr.name, attr.value);
+        }
+      }
+      el.appendChild(script);
+    });
+  }
+  window.addEventListener('DOMContentLoaded', (event) => {
+      loadBeaudar();
+  });
+</script>
+
+
+
+
+<!-- inject -->
+
+
+  </div>
+</body>
+</html>
