@@ -23,20 +23,8 @@
   
 
   
-    <meta name="description" content="今天我在用flask做上传图片时， 我先将图片读取上传到七牛云，然后再保存在本地，却发现保存在本地图片是空的。 查资料发现，原来当文件对象file_object被read()后，文件指针会指到最后，所以这时再save()，就只能从最后开始读取内容，内容自然为空。">
-<meta property="og:type" content="article">
-<meta property="og:title" content="文件保存的一个小细节">
-<meta property="og:url" content="http://icenglou.cn/2018/05/13/%E6%96%87%E4%BB%B6%E4%BF%9D%E5%AD%98%E7%9A%84%E4%B8%80%E4%B8%AA%E5%B0%8F%E7%BB%86%E8%8A%82/">
-<meta property="og:site_name" content="层楼">
-<meta property="og:description" content="今天我在用flask做上传图片时， 我先将图片读取上传到七牛云，然后再保存在本地，却发现保存在本地图片是空的。 查资料发现，原来当文件对象file_object被read()后，文件指针会指到最后，所以这时再save()，就只能从最后开始读取内容，内容自然为空。">
-<meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2018-05-13T09:09:14.000Z">
-<meta property="article:modified_time" content="2022-05-06T16:55:03.915Z">
-<meta property="article:author" content="nnocase">
-<meta property="article:tag" content="Python">
-<meta name="twitter:card" content="summary">
-  
-  
+  <meta name="description" content="今天我在用flask做上传图片时， 我先将图片读取上传到七牛云，然后再保存在本地，却发现保存在本地图片是空的。
+查资料发现，原来当文件对象file_object被read()后，文件指针会指到最后，所以这时再save()，就只能从最后开始读取内容，内容自然为空。">
 
   <!-- feed -->
   

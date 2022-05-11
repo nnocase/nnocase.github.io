@@ -23,18 +23,7 @@
   
 
   
-    <meta name="description" content="--------------------">
-<meta property="og:type" content="website">
-<meta property="og:title" content="层楼">
-<meta property="og:url" content="http://icenglou.cn/tags/mac/">
-<meta property="og:site_name" content="层楼">
-<meta property="og:description" content="--------------------">
-<meta property="og:locale" content="zh_CN">
-<meta property="article:author" content="nnocase">
-<meta property="article:tag" content="层楼, blog, python, 博客">
-<meta name="twitter:card" content="summary">
-  
-  
+  <meta name="description" content="--------------------">
 
   <!-- feed -->
   
@@ -113,7 +102,7 @@
 </div>
 
   <div class="post-list post"><a class="post-card post " href="/2022/04/27/Mac%E7%AB%AF%E5%8F%A35000%E8%A2%ABControlCe%E5%8D%A0%E7%94%A8%E7%9A%84%E9%97%AE%E9%A2%98/">
-<article class="md"><div class="post-cover"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?Mac"/></div><h2 class="post-title">Mac端口5000被ControlCe占用的问题</h2><div class="excerpt"><p>查看端口占用情况 lsof -i:端口号
+<article class="md"><h2 class="post-title">Mac端口5000被ControlCe占用的问题</h2><div class="excerpt"><p>查看端口占用情况 lsof -i:端口号
 $ lsof -i:5000COMMAND     PID USER   FD   TYPE            DEVICE SIZE/OFF NODE NAMEControlCe   491  xgf   23u  IPv4 0xa14657c0803f967      0t0  TCP *:commplex-main (LISTEN)ControlCe   491  xgf   24u  IPv6 0xa14657746fd3fcf      0t0  TCP *:commplex-main (LISTEN)
 显示进程ControlCe在占用5000端口，这是系统进程Control Center(隔空播放)，把它kill掉还是会自动启动起来。占用的是 0.0.0.0:5000
 解决方法</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2022-04-27T06:30:21.000Z">2022-04-27</time></span></div></article>

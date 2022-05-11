@@ -23,18 +23,7 @@
   
 
   
-    <meta name="description" content="--------------------">
-<meta property="og:type" content="website">
-<meta property="og:title" content="层楼">
-<meta property="og:url" content="http://icenglou.cn/tags/pillow/">
-<meta property="og:site_name" content="层楼">
-<meta property="og:description" content="--------------------">
-<meta property="og:locale" content="zh_CN">
-<meta property="article:author" content="nnocase">
-<meta property="article:tag" content="层楼, blog, python, 博客">
-<meta name="twitter:card" content="summary">
-  
-  
+  <meta name="description" content="--------------------">
 
   <!-- feed -->
   
@@ -113,7 +102,7 @@
 </div>
 
   <div class="post-list post"><a class="post-card post " href="/2021/12/12/%E7%94%A8Python%E7%BB%99%E5%9B%BE%E7%89%87%E6%B7%BB%E5%8A%A0%E6%B0%B4%E5%8D%B0/">
-<article class="md"><div class="post-cover"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?Pillow,Python"/></div><h2 class="post-title">用Python给图片添加水印</h2><div class="excerpt"><p>直接看代码：
+<article class="md"><h2 class="post-title">用Python给图片添加水印</h2><div class="excerpt"><p>直接看代码：
 from PIL import Image,ImageDraw,ImageFont, ImageEnhanceim = Image.open(&#x27;my_pic.jpeg&#x27;)w, h = im.sizewatermark = Image.new(&#x27;RGBA&#x27;, im.size) # 水印draw = ImageDraw.Draw(watermark, &#x27;RGBA&#x27;)# 设置文字大小font_size = 50# 设置字体font_file = &quot;simsun.ttc&quot;font = ImageFont.truetype(font_file,font_size )draw.text((10, 20), &#x27;这是水印内容&#x27;, fill=&quot;#ff0000&quot;, font=font)# 第一个参数：表示文字起始坐标# 第二个参数：表示写入内容# fill：表示颜色# font：字体# 旋转 45 度# watermark = watermark.rotate(45, Image.BICUBIC)watermark = watermark.rotate(0, Image.BICUBIC)# 透明的alpha = watermark.split()[3]alpha = ImageEnhance.Brightness(alpha).enhance(0.7)watermark.putalpha(alpha)# 合成新的图片n = Image.composite(watermark, im, watermark)n.save(&#x27;new_watermark.jpeg&#x27;, &#x27;JPEG&#x27;)
 
 效果：</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-12-12T15:21:53.000Z">2021-12-12</time></span></div></article>
