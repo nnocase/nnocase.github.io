@@ -18,12 +18,20 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="theme-color" content="#f8f8f8">
-  <title>层楼</title>
+  <title>screen的使用 - 层楼</title>
 
   
 
   
-  <meta name="description" content="--------------------">
+  <meta name="description" content="screen
+安装 screen
+
+apt-get install screen
+
+
+screen 命令screen -S [会话名称] # 新建screen会话screen -ls  # 列出所有screen会话screen -r [会话pid]  # 进入某个会话
+
+screen 相关操作...">
 
   <!-- feed -->
   
@@ -47,8 +55,10 @@
   
 
 
+
+
   <div class='l_body' id='start'>
-    <aside class='l_left' layout=''>
+    <aside class='l_left' layout='post'>
     
 
 
@@ -58,68 +68,78 @@
 <nav class="menu dis-select"><a class="nav-item active" href="/">文章</a><a class="nav-item" href="/friends/">友链</a><a class="nav-item" href="/about/">关于</a></nav></header>
 
 <div class="widgets">
-<div class="widget-wrap" id="markdown"><div class="widget-header cap dis-select"><span class="name">丑奴儿·书博山道中壁  --辛弃疾</span></div><div class="widget-body fs14"><p>少年不识愁滋味，爱上层楼。<br>爱上层楼，为赋新词强说愁。<br>而今识尽愁滋味，欲说还休。<br>欲说还休，却道天凉好个秋。</p>
-</div></div>
 
-<div class="widget-wrap" id="recent"><div class="widget-header cap dis-select"><span class="name">最近更新</span><a class="cap-action" id="rss" title="Subscribe" href="/atom.xml"><svg class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8938"><path d="M800.966 947.251c0-404.522-320.872-732.448-716.69-732.448V62.785c477.972 0 865.44 395.987 865.44 884.466h-148.75z m-162.273 0h-148.74c0-228.98-181.628-414.598-405.678-414.598v-152.01c306.205 0 554.418 253.68 554.418 566.608z m-446.24-221.12c59.748 0 108.189 49.503 108.189 110.557 0 61.063-48.44 110.563-108.188 110.563-59.747 0-108.18-49.5-108.18-110.563 0-61.054 48.433-110.556 108.18-110.556z" p-id="8939"></path></svg></a></div><div class="widget-body fs14"><div class="more-item"><a class="title" href="/2022/09/07/screen%E7%9A%84%E4%BD%BF%E7%94%A8/">screen的使用</a></div><div class="more-item"><a class="title" href="/2020/05/15/github%E6%A0%87%E5%87%86fork-pull-request%E6%B5%81%E7%A8%8B/">GitHub标准Fork & Pull Request流程</a></div><div class="more-item"><a class="title" href="/2021/05/08/%E7%94%9F%E6%88%90%E5%99%A8%E6%89%A7%E8%A1%8C%E6%97%B6%E9%97%B4%E5%B7%AE%E5%BC%82/">生成器执行时间差异</a></div><div class="more-item"><a class="title" href="/2021/12/12/%E7%94%A8Python%E7%BB%99%E5%9B%BE%E7%89%87%E6%B7%BB%E5%8A%A0%E6%B0%B4%E5%8D%B0/">用Python给图片添加水印</a></div><div class="more-item"><a class="title" href="/2019/12/23/%E9%85%8D%E7%BD%AECDN%E5%8A%A0%E9%80%9F/">配置CDN加速</a></div></div></div>
+<div class="widget-wrap single" id="toc"><div class="widget-header cap dis-select"><span class="name">本文目录</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#screen"><span class="toc-text">screen</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#screen-%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C"><span class="toc-text">screen 相关操作</span></a></li></ol></li></ol></div></div></div>
+
+
 </div>
 <footer class="footer dis-select"><div class="social-wrap"><a class="social" href="https://github.com/nnocase" target="_blank" rel="external nofollow noopener noreferrer"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/cdn-x/placeholder@1.0.3/social/08a41b181ce68.svg"/></a><a class="social" href="/about/#comments" rel="noopener noreferrer"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/cdn-x/placeholder@1.0.3/social/942ebbf1a4b91.svg"/></a></div></footer>
 
     </aside>
-    <div class='l_main list'>
+    <div class='l_main'>
       
-  
-
-<header class="header mobile-only">
-
-<div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://cdn.jsdelivr.net/gh/cdn-x/placeholder@1.0.2/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="https://tva1.sinaimg.cn/large/e6c9d24egy1h18fu9pburj2088086jri.jpg" onerror="javascript:this.classList.add('error');this.src='https://cdn.jsdelivr.net/gh/cdn-x/placeholder@1.0.1/image/2659360.svg';"></a><a class="title" href="/"><div class="main">层楼</div><div class="sub cap">少年不识愁滋味,爱上层楼.爱上层楼.</div></a></div>
-</header>
-
-
 
       
 
+<div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" href="/">文章</a></div><div id="post-meta">发布于&nbsp;<time datetime="2022-09-07T07:09:27.000Z">2022-09-07</time></div></div>
 
-  <div class='nav-wrap'>
-  <nav class='sub post cap'>
-    
-      <a class='active' href='/'>近期发布</a>
-    
-    
-    
-      
-        <a href='/tags'>标签</a>
-      
-    
-    
-      
-        <a href='/archives'>归档</a>
-      
-    
-  </nav>
-</div>
+<article class='content md post'>
+<h1 class="article-title"><span>screen的使用</span></h1>
+<h2 id="screen"><a href="#screen" class="headerlink" title="screen"></a>screen</h2><ul>
+<li>安装 screen</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">apt-get install screen</span><br></pre></td></tr></table></figure>
 
-  <div class="post-list post"><a class="post-card post " href="/2018/04/13/Python%E5%91%BD%E4%BB%A4%E4%B8%AD%E7%9A%84-m-%E5%8F%82%E6%95%B0/">
-<article class="md"><h2 class="post-title">Python命令中的 -m 参数</h2><div class="excerpt"><p>首先看一下python –help里的帮助文档
-$ python --helpOptions and arguments (and corresponding environment variables):-b     : issue warnings about comparing bytearray with unicode         (-bb: issue errors)-B     : don&#x27;t write .py[co] files on import; also PYTHONDONTWRITEBYTECODE=x-c cmd : program passed in as string (terminates option list)-d     : debug output from parser; also PYTHONDEBUG=x-E     : ignore PYTHON* environment variables (such as PYTHONPATH)-h     : print this help message and exit (also --help)-i     : inspect interactively after running script; forces a prompt even         if stdin does not appear to be a terminal; also PYTHONINSPECT=x-m mod : run library module as a script (terminates option list)-O     : optimize generated bytecode slightly; also PYTHONOPTIMIZE=x-OO    : remove doc-strings in addition to the -O optimizations-R     : use a pseudo-random salt to make hash() values of various types be         unpredictable between separate invocations of the interpreter, as         a defense against denial-of-service attacks</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2018-04-13T09:03:54.000Z">2018-04-13</time></span></div></article>
-</a><a class="post-card post " href="/2018/02/15/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
-<article class="md"><h2 class="post-title">服务器环境搭建</h2><div class="excerpt"><p>连接服务器ssh root@47.106.85.1**如果报错，
-Please contact your system administrator.Add correct host key in /Users/xgf/.ssh/known_hosts to get rid of this message.Offending ECDSA key in /Users/xgf/.ssh/known_hosts:4
-说明 之前用密钥连过，要删除记录</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2018-02-15T02:10:37.000Z">2018-02-15</time></span></div></article>
-</a></div>
-  
-  <div class='paginator-wrap dis-select'>
-    <a class='paginator prev' href='/'>
-      <img src='https://cdn.jsdelivr.net/gh/cdn-x/placeholder@1.0.1/arrow/f049bbd4e88ec.svg'/>
-    </a>
-    <div class='paginator current'>
-      2<span class='sep'></span>2
+<ul>
+<li>screen 命令<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">screen -S [会话名称] # 新建screen会话</span><br><span class="line">screen -ls  # 列出所有screen会话</span><br><span class="line">screen -r [会话pid]  # 进入某个会话</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="screen-相关操作"><a href="#screen-相关操作" class="headerlink" title="screen 相关操作"></a>screen 相关操作</h3><ol>
+<li>新建screen会话：直接输入screen命令或者screen -S [会话名称] eg: screen -S blog</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">screen -S celery</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>打开你要挂载的项目</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cd /work/blog/run.py &amp;&amp; python run.py</span><br></pre></td></tr></table></figure>
+
+<p>此时已经运行了flask项目</p>
+<ol start="3">
+<li>退出会话：按下组合键Ctrl+a并松开，此时screen窗口等待命令，然后按下d并松开，退出screen窗口。</li>
+<li>查看当前系统所有screen会话：screen -ls</li>
+<li>进入某个screen会话：screen -r [会话的PID]</li>
+<li>在进入某个screen会话后，杀死screen会话：按下组合键Ctrl+a并松开，此时screen窗口等待命令，然后按下大写的K（即组合键：Shift+k）并松开，（系统提示是否要杀死）按下y确认杀死screen会话。</li>
+<li>如果别的程序已经运行了screen,你要关闭它的，用自己的。screen -D -r 进程（号）</li>
+<li>查找进程 screen -ls | grep yyyg(表示目录)</li>
+</ol>
+<p>Attached 表示前台运行<br>Detached 表示后台运行</p>
+
+
+<div class="article-footer reveal fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div></section></div>
+
+</article>
+
+<div class="related-wrap reveal" id="read-next"><section class="header cap theme"><span>接下来阅读</span></section><section class="body fs14"><a id="next" href="/2022/04/27/Mac%E7%AB%AF%E5%8F%A35000%E8%A2%ABControlCe%E5%8D%A0%E7%94%A8%E7%9A%84%E9%97%AE%E9%A2%98/">Mac端口5000被ControlCe占用的问题<span class="note">较早</span></a><div class="line"></div></section></div>
+
+
+
+
+
+
+  <div class='related-wrap md reveal' id="comments">
+    <div class='cmt-title cap theme'>
+      快来参与讨论吧
     </div>
-    <a class='paginator next disable' href='/'>
-      <img src='https://cdn.jsdelivr.net/gh/cdn-x/placeholder@1.0.1/arrow/064b95430caf4.svg'/>
-    </a>
-  </div>
+    <div class='cmt-body beaudar'>
+      
 
+<svg class="loading" style="vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2709"><path d="M832 512c0-176-144-320-320-320V128c211.2 0 384 172.8 384 384h-64zM192 512c0 176 144 320 320 320v64C300.8 896 128 723.2 128 512h64z" p-id="2710"></path></svg>
+
+<div id="beaudar" repo="nnocase/blog-comments" issue-term="pathname" theme="preferred-color-scheme" input-position="top" comment-order="desc" loading="false" branch="main"></div>
+
+    </div>
+  </div>
 
 
 

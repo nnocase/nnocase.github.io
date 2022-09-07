@@ -6,7 +6,7 @@
   <link href="http://icenglou.cn/atom.xml" rel="self"/>
   
   <link href="http://icenglou.cn/"/>
-  <updated>2022-05-06T16:54:37.561Z</updated>
+  <updated>2022-09-07T07:12:36.658Z</updated>
   <id>http://icenglou.cn/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>screen的使用</title>
+    <link href="http://icenglou.cn/2022/09/07/screen%E7%9A%84%E4%BD%BF%E7%94%A8/"/>
+    <id>http://icenglou.cn/2022/09/07/screen%E7%9A%84%E4%BD%BF%E7%94%A8/</id>
+    <published>2022-09-07T07:09:27.000Z</published>
+    <updated>2022-09-07T07:12:36.658Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="screen"><a href="#screen" class="headerlink" title="screen"></a>screen</h2><ul><li>安装 screen</li></ul><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">apt-get install screen</span><br></pre></td></tr></table></figure><ul><li>screen 命令<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">screen -S [会话名称] # 新建screen会话</span><br><span class="line">screen -ls  # 列出所有screen会话</span><br><span class="line">screen -r [会话pid]  # 进入某个会话</span><br></pre></td></tr></table></figure></li></ul><h3 id="screen-相关操作"><a href="#screen-相关操作" class="headerlink" title="screen 相关操作"></a>screen 相关操作</h3><ol><li>新建screen会话：直接输入screen命令或者screen -S [会话名称] eg: screen -S blog</li></ol><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">screen -S celery</span><br></pre></td></tr></table></figure><ol start="2"><li>打开你要挂载的项目</li></ol><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cd /work/blog/run.py &amp;&amp; python run.py</span><br></pre></td></tr></table></figure><p>此时已经运行了flask项目</p><ol start="3"><li>退出会话：按下组合键Ctrl+a并松开，此时screen窗口等待命令，然后按下d并松开，退出screen窗口。</li><li>查看当前系统所有screen会话：screen -ls</li><li>进入某个screen会话：screen -r [会话的PID]</li><li>在进入某个screen会话后，杀死screen会话：按下组合键Ctrl+a并松开，此时screen窗口等待命令，然后按下大写的K（即组合键：Shift+k）并松开，（系统提示是否要杀死）按下y确认杀死screen会话。</li><li>如果别的程序已经运行了screen,你要关闭它的，用自己的。screen -D -r 进程（号）</li><li>查找进程 screen -ls | grep yyyg(表示目录)</li></ol><p>Attached 表示前台运行<br>Detached 表示后台运行</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;screen&quot;&gt;&lt;a href=&quot;#screen&quot; class=&quot;headerlink&quot; title=&quot;screen&quot;&gt;&lt;/a&gt;screen&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;安装 screen&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure class=&quot;highlight sh</summary>
+      
+    
+    
+    
+    
+    <category term="Linux" scheme="http://icenglou.cn/tags/linux/"/>
+    
+  </entry>
   
   <entry>
     <title>Mac端口5000被ControlCe占用的问题</title>
